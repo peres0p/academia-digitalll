@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>academia.digital — Trilha Completa de Mercado Digital</title>
+<style>
+html, body{margin:0; padding:0;}
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+:root{
+  --ink:#10140F;
+  --paper:#F5F2E9;
+  --paper-2:#EDE8D9;
+  --verde:#1F7A5C;
+  --coral:#FF4470;
+  --dourado:#C9932B;
+  --roxo:#7A4FB5;
+  --line:#DED7C0;
+  --line-dark:rgba(245,242,233,0.14);
+  --text-soft:#5B5A4E;
+}
+
+*{box-sizing:border-box;}
+.app-root{
+  font-family:'Inter',sans-serif;
+  color:var(--ink);
+  background:var(--ink);
+  min-height:100vh;
+  display:flex;
+  align-items:stretch;
+}
+.mono{font-family:'IBM Plex Mono',monospace;}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif; margin:0; letter-spacing:-0.01em;}
+button{font-family:inherit; cursor:pointer;}
+input{font-family:inherit;}
+.only-mobile{display:none;}
+
+.cor-verde{color:var(--verde);}
+.cor-coral{color:var(--coral);}
+.cor-dourado{color:var(--dourado);}
+.cor-roxo{color:var(--roxo);}
+.cor-bg-verde{background:var(--verde);}
+.cor-bg-coral{background:var(--coral);}
+.cor-bg-dourado{background:var(--dourado);}
+.cor-bg-roxo{background:var(--roxo);}
+.cor-bg-soft-verde{background:linear-gradient(180deg, rgba(31,122,92,0.10), transparent 70%);}
+.cor-bg-soft-coral{background:linear-gradient(180deg, rgba(255,68,112,0.10), transparent 70%);}
+.cor-bg-soft-dourado{background:linear-gradient(180deg, rgba(201,147,43,0.12), transparent 70%);}
+.cor-bg-soft-roxo{background:linear-gradient(180deg, rgba(122,79,181,0.10), transparent 70%);}
+
+/* ---------- SIDEBAR ---------- */
+.sidebar{
+  width:300px; flex:0 0 300px;
+  background:var(--ink); color:var(--paper);
+  display:flex; flex-direction:column;
+  padding:22px 18px 18px;
+  border-right:1px solid var(--line-dark);
+  height:100vh; position:sticky; top:0; overflow:hidden;
+}
+.sidebar-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;}
+.brand{display:flex; align-items:center; gap:10px;}
+.brand-mark{
+  width:34px; height:34px; border-radius:9px; flex:0 0 auto;
+  background:linear-gradient(135deg, var(--verde), var(--roxo));
+  display:flex; align-items:center; justify-content:center;
+  font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:12px; color:var(--paper);
+}
+.brand-name{font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600;}
+.brand-name em{font-style:normal; color:var(--dourado);}
+.brand-tag{font-size:11px; color:rgba(245,242,233,0.55); margin-top:1px;}
+
+.home-btn{
+  display:flex; align-items:center; justify-content:space-between;
+  background:rgba(245,242,233,0.06); border:1px solid var(--line-dark); color:var(--paper);
+  border-radius:10px; padding:11px 14px; font-size:13.5px; font-weight:600; margin-bottom:14px;
+  transition:background .15s;
+}
+.home-btn:hover{background:rgba(245,242,233,0.11);}
+.home-btn-pct{font-family:'IBM Plex Mono',monospace; color:var(--dourado);}
+
+.funil-box{display:flex; gap:12px; align-items:stretch; margin-bottom:16px; height:76px;}
+.funil-track{
+  width:8px; border-radius:5px; background:rgba(245,242,233,0.08); position:relative; overflow:hidden; flex:0 0 auto;
+}
+.funil-fill{
+  position:absolute; bottom:0; left:0; right:0;
+  background:linear-gradient(180deg, var(--coral), var(--verde));
+  border-radius:5px; transition:height .5s ease;
+}
+.funil-label{display:flex; flex-direction:column; justify-content:space-between; flex:1;}
+.funil-label span:first-child{
+  font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:10.5px; letter-spacing:.05em;
+  color:rgba(245,242,233,0.72); line-height:1.35; max-width:130px;
+}
+.funil-label .mono{font-size:14px; color:var(--dourado); font-weight:600;}
+
+.search-box{
+  display:flex; align-items:center; gap:8px;
+  background:rgba(245,242,233,0.07); border:1px solid var(--line-dark); border-radius:9px;
+  padding:9px 12px; margin-bottom:10px; color:rgba(245,242,233,0.7);
+}
+.search-box input{
+  background:none; border:none; outline:none; color:var(--paper); font-size:13px; width:100%;
+}
+.search-box input::placeholder{color:rgba(245,242,233,0.4);}
+
+.fav-filter{
+  display:flex; align-items:center; gap:7px;
+  background:none; border:1px solid var(--line-dark); color:rgba(245,242,233,0.7);
+  border-radius:9px; padding:8px 12px; font-size:12.5px; margin-bottom:14px;
+}
+.fav-filter--on{ color:var(--dourado); border-color:var(--dourado); background:rgba(201,147,43,0.1); }
+
+.module-list{overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:2px; margin:0 -6px; padding:0 6px;}
+.module-list::-webkit-scrollbar{width:6px;}
+.module-list::-webkit-scrollbar-thumb{background:rgba(245,242,233,0.15); border-radius:4px;}
+.module-item{
+  display:flex; align-items:center; gap:10px; text-align:left;
+  background:none; border:none; color:rgba(245,242,233,0.82);
+  padding:9px 8px; border-radius:8px; font-size:13.2px; width:100%;
+}
+.module-item:hover{background:rgba(245,242,233,0.06);}
+.module-item--active{background:rgba(245,242,233,0.12); color:var(--paper); font-weight:600;}
+.module-num{font-size:11px; width:22px; flex:0 0 auto;}
+.module-item-title{flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.module-item-actions{display:flex; align-items:center; gap:6px; flex:0 0 auto;}
+.mini-check{color:var(--verde); display:flex;}
+.mini-star{color:rgba(245,242,233,0.3); display:flex;}
+.mini-star--on{color:var(--dourado);}
+.empty-hint{font-size:12.5px; color:rgba(245,242,233,0.5); padding:10px 6px;}
+
+/* ---------- MAIN ---------- */
+.main{flex:1; background:var(--paper); min-height:100vh; overflow-x:hidden;}
+.home, .module-view{max-width:980px; margin:0 auto; padding:56px 40px 90px;}
+
+.hero{display:flex; gap:36px; padding-bottom:34px; border-bottom:1px solid var(--line); margin-bottom:36px; flex-wrap:wrap;}
+.hero-text{flex:1 1 480px;}
+.eyebrow{font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.08em; color:var(--coral); margin-bottom:14px;}
+.hero h1{font-size:36px; line-height:1.15; margin-bottom:16px; max-width:640px;}
+.hero-sub{color:var(--text-soft); font-size:15.5px; line-height:1.6; max-width:560px; margin-bottom:26px;}
+.hero-actions{display:flex; align-items:center; gap:28px; flex-wrap:wrap;}
+.btn-primary{
+  display:flex; align-items:center; gap:8px;
+  background:var(--ink); color:var(--paper); border:none; border-radius:10px;
+  padding:13px 20px; font-size:14.5px; font-weight:600; transition:transform .15s;
+}
+.btn-primary:hover{transform:translateY(-1px);}
+.btn-ghost{
+  display:flex; align-items:center; gap:6px; justify-content:center;
+  background:none; border:1px solid var(--ink); color:var(--ink);
+  border-radius:9px; padding:10px 16px; font-size:13.5px; font-weight:600; width:100%; margin-top:16px;
+}
+.hero-progress{display:flex; align-items:center; gap:14px;}
+.ring{
+  --pct:0; width:56px; height:56px; border-radius:50%; flex:0 0 auto;
+  background:conic-gradient(var(--verde) calc(var(--pct)*1%), var(--paper-2) 0);
+  display:flex; align-items:center; justify-content:center; position:relative;
+}
+.ring::before{content:""; position:absolute; inset:5px; border-radius:50%; background:var(--paper);}
+.ring span{position:relative; font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;}
+.hero-progress-title{font-weight:600; font-size:13.5px;}
+.hero-progress-sub{font-size:12px; color:var(--text-soft);}
+
+.hero-panel{
+  flex:0 0 260px; background:var(--ink); color:var(--paper);
+  border-radius:16px; padding:24px; display:flex; flex-direction:column;
+}
+.hero-panel-label{font-size:10.5px; color:rgba(245,242,233,0.5); letter-spacing:.08em; margin-bottom:10px;}
+.hero-panel-num{font-size:13px; margin-bottom:6px;}
+.hero-panel-title{font-family:'Space Grotesk',sans-serif; font-size:19px; font-weight:600; margin-bottom:8px;}
+.hero-panel-desc{font-size:13px; color:rgba(245,242,233,0.65); line-height:1.5; flex:1;}
+.hero-panel .btn-ghost{border-color:rgba(245,242,233,0.3); color:var(--paper);}
+
+.home-search{display:none;}
+
+.cluster-section{margin-bottom:38px;}
+.cluster-heading{display:flex; align-items:center; gap:10px; margin-bottom:16px;}
+.cluster-dot{width:9px; height:9px; border-radius:50%;}
+.cluster-heading h2{font-size:17px; font-weight:600;}
+.cluster-count{font-size:11.5px; color:var(--text-soft); margin-left:auto;}
+
+.module-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px,1fr)); gap:14px;}
+.module-card{
+  background:#fff; border:1px solid var(--line); border-radius:13px; padding:18px;
+  display:flex; flex-direction:column; gap:9px; transition:transform .15s, box-shadow .15s;
+}
+.module-card:hover{transform:translateY(-2px); box-shadow:0 8px 20px rgba(16,20,15,0.08);}
+.module-card-top{display:flex; align-items:center; justify-content:space-between;}
+.module-card h3{font-size:15.5px; font-weight:600; line-height:1.3;}
+.module-card p{font-size:12.8px; color:var(--text-soft); line-height:1.5; flex:1;}
+.module-card-foot{display:flex; align-items:center; justify-content:space-between; margin-top:2px;}
+.chip-count{font-size:11px; color:var(--text-soft); font-family:'IBM Plex Mono',monospace;}
+.done-tag{display:flex; align-items:center; gap:4px; font-size:11px; color:var(--verde); font-weight:600;}
+.mini-star{color:#C9C4AE;}
+
+/* ---------- MODULE VIEW ---------- */
+.module-header{border-radius:18px; padding:30px 32px; margin-bottom:26px; border:1px solid var(--line);}
+.module-header-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;}
+.module-num-lg{font-size:14px;}
+.module-header-actions{display:flex; gap:10px;}
+.pill-btn{
+  display:flex; align-items:center; gap:6px;
+  background:#fff; border:1px solid var(--line); border-radius:20px; padding:7px 14px; font-size:12.5px; font-weight:600;
+  color:var(--ink);
+}
+.pill-btn--fav{color:var(--dourado); border-color:var(--dourado);}
+.pill-btn--done{color:#fff; background:var(--verde); border-color:var(--verde);}
+.cluster-tag{font-size:11.5px; color:var(--text-soft); font-weight:600; text-transform:uppercase; letter-spacing:.04em; margin-bottom:6px;}
+.module-header h1{font-size:28px; margin-bottom:16px;}
+.chip-row{display:flex; flex-wrap:wrap; gap:7px;}
+.chip{
+  font-size:12px; background:#fff; border:1px solid var(--line); border-radius:20px; padding:5px 12px; color:var(--text-soft);
+}
+
+.tabs{display:flex; gap:4px; border-bottom:1px solid var(--line); margin-bottom:26px; overflow-x:auto;}
+.tab{
+  background:none; border:none; padding:11px 16px; font-size:13.5px; font-weight:600; color:var(--text-soft);
+  border-bottom:2px solid transparent; white-space:nowrap; display:flex; align-items:center; gap:7px;
+}
+.tab--active{color:var(--ink); border-bottom-color:var(--coral);}
+.tab-badge{font-size:10.5px; background:var(--paper-2); padding:1px 6px; border-radius:8px;}
+
+.panel-card{background:#fff; border:1px solid var(--line); border-radius:16px; padding:30px 32px;}
+.panel-card h3{font-size:16px; margin-bottom:12px;}
+.panel-card h3:not(:first-child){margin-top:26px;}
+.lead{font-size:15px; line-height:1.7; color:var(--ink); margin-bottom:4px;}
+.tip-list{margin:0; padding-left:20px; display:flex; flex-direction:column; gap:9px;}
+.tip-list li{font-size:14px; line-height:1.6; color:var(--text-soft);}
+
+.step-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:16px;}
+.step-list li{display:flex; gap:14px; align-items:flex-start;}
+.step-num{
+  flex:0 0 auto; width:30px; height:30px; border-radius:8px; background:var(--paper-2);
+  display:flex; align-items:center; justify-content:center; font-size:11.5px; font-weight:600; color:var(--ink);
+}
+.step-list li span:last-child{font-size:14.5px; line-height:1.65; padding-top:4px;}
+
+.tool-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(160px,1fr)); gap:10px;}
+.tool-card{
+  background:var(--paper-2); border-radius:10px; padding:14px 16px; font-size:13.5px; font-weight:600;
+  border:1px solid var(--line);
+}
+
+.checklist-sub{font-size:13px; color:var(--text-soft); margin-bottom:16px;}
+.checklist{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px;}
+.checklist-item{
+  display:flex; align-items:center; gap:12px; padding:12px 14px; border:1px solid var(--line); border-radius:10px;
+  font-size:14px; transition:background .15s;
+}
+.checklist-item:hover{background:var(--paper-2);}
+.checklist-item--done{color:var(--text-soft); text-decoration:line-through; text-decoration-color:var(--line);}
+.checkbox{
+  flex:0 0 auto; width:19px; height:19px; border-radius:6px; border:1.6px solid var(--line);
+  display:flex; align-items:center; justify-content:center; color:#fff;
+}
+.checkbox--on{background:var(--verde); border-color:var(--verde);}
+
+.module-nav{display:flex; justify-content:space-between; gap:16px; margin-top:32px;}
+.nav-btn{
+  display:flex; align-items:center; gap:8px; background:#fff; border:1px solid var(--line); border-radius:10px;
+  padding:12px 18px; font-size:13.5px; font-weight:600; color:var(--ink); max-width:48%;
+}
+.nav-btn:disabled{opacity:.4; cursor:default;}
+.nav-btn--next{margin-left:auto;}
+
+/* ---------- MOBILE TOPBAR / DRAWER ---------- */
+.mobile-topbar{display:none;}
+.scrim{display:none;}
+
+@media (max-width: 880px){
+  .app-root{flex-direction:column;}
+  .mobile-topbar{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    background:var(--ink); color:var(--paper); padding:14px 16px; position:sticky; top:0; z-index:20;
+    border-bottom:1px solid var(--line-dark);
+  }
+  .mobile-brand{font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px;}
+  .mobile-brand em{font-style:normal; color:var(--dourado);}
+  .mobile-progress-chip{font-family:'IBM Plex Mono',monospace; font-size:12px; background:rgba(245,242,233,0.1); padding:4px 9px; border-radius:8px;}
+  .icon-btn{background:none; border:none; color:var(--paper); display:flex;}
+  .only-mobile{display:flex;}
+
+  .scrim{
+    display:block; position:fixed; inset:0; background:rgba(16,20,15,0.55); z-index:29;
+  }
+  .sidebar{
+    position:fixed; top:0; left:0; height:100vh; z-index:30;
+    transform:translateX(-100%); transition:transform .25s ease; box-shadow:0 0 40px rgba(0,0,0,0.4);
+  }
+  .sidebar--open{transform:translateX(0);}
+  .home-search{display:none;}
+  .home, .module-view{padding:30px 18px 70px;}
+  .hero{flex-direction:column;}
+  .hero h1{font-size:27px;}
+  .hero-panel{flex:1 1 auto;}
+  .module-header{padding:22px 20px;}
+  .module-header h1{font-size:22px;}
+  .panel-card{padding:22px 20px;}
+  .nav-btn{max-width:100%; font-size:12.5px; padding:11px 12px;}
+  .nav-btn span:last-child{display:none;}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{transition:none !important; animation:none !important; scroll-behavior:auto !important;}
+}
+
+*:focus-visible{outline:2px solid var(--coral); outline-offset:2px;}
+</style>
+</head>
+<body>
+<div id="app-root" class="app-root"></div>
+<script>
+/* ============================================================
+   DADOS DOS MÓDULOS
+   ============================================================ */
+
+const MODULES = [
+  {
+    id: 1, cluster: "Atração & Conteúdo", cor: "verde",
+    titulo: "Marketing de Conteúdo",
+    subtemas: ["Blog","Artigos","E-books","Guias","Infográficos","Checklists","Estudos de caso","Whitepapers","Newsletters","Podcasts","Webinars","Lives","Vídeos curtos","Vídeos longos"],
+    oQueE: "Marketing de conteúdo é atrair e educar seu público criando material útil antes de vender qualquer coisa. Cada formato — blog, e-book, podcast, vídeo — serve para construir autoridade e confiança ao longo do tempo.",
+    comoFazer: [
+      "Defina 3 a 5 \"pilares de conteúdo\" (temas centrais) ligados às dores reais do seu público.",
+      "Escolha o formato pelo canal: blog e SEO para busca orgânica; e-books e whitepapers para captar leads; podcasts e lives para autoridade e proximidade.",
+      "Crie um calendário editorial mensal com temas, formatos e datas de publicação.",
+      "Produza um \"conteúdo-pilar\" longo (ex.: guia completo) e depois fatie em vídeos curtos, carrosséis e newsletters.",
+      "Sempre feche com uma chamada para ação: inscrever-se, baixar ou agendar.",
+      "Meça o que gera mais leads e engajamento, e dobre a aposta nesse formato."
+    ],
+    ferramentas: ["Notion", "Canva", "CapCut", "WordPress", "Google Docs", "Claude/ChatGPT (roteiro)"],
+    dicas: [
+      "Prefira consistência a volume: melhor publicar 1x por semana sempre do que 5x uma única vez.",
+      "Reaproveite: 1 vídeo pode virar 1 artigo, 5 posts e 1 newsletter.",
+      "Conteúdo educa; o funil de vendas converte — não confunda as duas etapas."
+    ],
+    checklist: ["Definir pilares de conteúdo", "Criar calendário editorial", "Produzir 1 conteúdo-pilar por mês", "Ter CTA em todo material", "Revisar métricas mensalmente"]
+  },
+  {
+    id: 2, cluster: "Atração & Conteúdo", cor: "verde",
+    titulo: "Redes Sociais",
+    subtemas: ["Instagram","Facebook","TikTok","YouTube","LinkedIn","X","Pinterest","Threads","Snapchat","Kwai","Conteúdo viral","Storytelling","Reels","Shorts","Carrosséis","Stories","Engajamento","Crescimento orgânico","Calendário editorial"],
+    oQueE: "Cada rede social tem um algoritmo e um comportamento de público diferente — o que funciona no Instagram não funciona igual no LinkedIn ou no TikTok. O objetivo é escolher 2 ou 3 redes certas e dominar o formato nativo de cada uma.",
+    comoFazer: [
+      "Escolha as redes onde seu público realmente está — não tente estar em todas ao mesmo tempo.",
+      "Domine os formatos nativos: Reels/TikTok/Shorts para alcance, Stories para proximidade diária, carrosséis para explicar e educar, lives para engajamento profundo.",
+      "Use storytelling: toda peça precisa ter gancho nos 3 primeiros segundos, desenvolvimento e um CTA no fim.",
+      "Monte um calendário editorial semanal nos horários de maior engajamento do seu público.",
+      "Responda comentários e DMs rápido — é o que o algoritmo mais recompensa hoje.",
+      "Analise semanalmente: retenção, compartilhamentos e salvamentos importam mais que curtidas."
+    ],
+    ferramentas: ["Metricool", "Later", "CapCut", "Canva", "TikTok Creative Center", "Instagram Insights"],
+    dicas: [
+      "O gancho dos 3 segundos iniciais decide se o vídeo viraliza ou não.",
+      "Crescimento orgânico vem de repetir o mesmo formato várias vezes, não de sorte.",
+      "Trate cada rede como um idioma diferente: adapte o conteúdo, não apenas republique igual."
+    ],
+    checklist: ["Definir 2-3 redes prioritárias", "Criar calendário semanal", "Ter gancho nos 3s iniciais de todo vídeo", "Responder comentários em até 24h", "Revisar métricas de retenção"]
+  },
+  {
+    id: 3, cluster: "Aquisição Paga & Dados", cor: "dourado",
+    titulo: "Tráfego Pago",
+    subtemas: ["Google Ads","Meta Ads","TikTok Ads","LinkedIn Ads","Pinterest Ads","X Ads","Pesquisa","Display","Shopping","Remarketing","Performance Max","Vídeo","Conversão","Geração de Leads"],
+    oQueE: "Tráfego pago é comprar visibilidade imediata em plataformas de anúncio para gerar visitas, leads ou vendas de forma previsível e escalável.",
+    comoFazer: [
+      "Defina o objetivo da campanha antes de tudo: reconhecimento, tráfego, leads ou conversão.",
+      "Escolha a plataforma pelo público e objetivo: Google Ads para quem já busca, Meta Ads para descoberta visual, TikTok Ads para público jovem, LinkedIn Ads para B2B.",
+      "Estruture em camadas: Campanha → Conjunto de anúncios (público) → Anúncio (criativo).",
+      "Comece com orçamento pequeno em 2-3 variações de criativo e público, e desligue o que não performa em 2-3 dias.",
+      "Use remarketing para reimpactar quem visitou seu site ou perfil e não converteu.",
+      "Otimize pela métrica certa: CPC para tráfego, CPA ou ROAS para conversão."
+    ],
+    ferramentas: ["Gerenciador de Anúncios Meta", "Google Ads", "TikTok Ads Manager", "Google Tag Manager", "Canva"],
+    dicas: [
+      "O criativo do anúncio importa mais que a segmentação na maioria das plataformas hoje.",
+      "Nunca julgue uma campanha em menos de 3-4 dias de veiculação.",
+      "Remarketing costuma ter o menor custo por conversão — mantenha sempre uma campanha rodando."
+    ],
+    checklist: ["Definir objetivo da campanha", "Instalar pixel/tag de conversão", "Testar 3 criativos diferentes", "Configurar remarketing", "Revisar CPA/ROAS a cada 48-72h"]
+  },
+  {
+    id: 4, cluster: "Atração & Conteúdo", cor: "verde",
+    titulo: "SEO — Otimização para Google",
+    subtemas: ["Palavras-chave","Títulos","Meta Description","Heading Tags","URL","Linkagem interna","Backlinks","Guest Posts","Autoridade","Sitemap","Robots","Velocidade","Core Web Vitals","Mobile First","Google Meu Negócio","Avaliações","Mapas"],
+    oQueE: "SEO é o conjunto de técnicas para aparecer nas primeiras posições do Google organicamente, sem pagar por clique — dividido em On-page (conteúdo), Off-page (autoridade), Técnico (estrutura) e Local (região).",
+    comoFazer: [
+      "Pesquise palavras-chave que seu público busca, olhando volume de busca e intenção de compra.",
+      "On-page: use a palavra-chave no título, na meta description, nos H1/H2, na URL, e crie linkagem interna entre páginas relacionadas.",
+      "Técnico: gere um sitemap.xml, configure o robots.txt, garanta velocidade de carregamento e bons Core Web Vitals, priorizando mobile-first.",
+      "Off-page: consiga backlinks de sites relevantes e escreva guest posts no seu nicho para ganhar autoridade.",
+      "Local: registre e otimize o Google Meu Negócio, colete avaliações e apareça bem posicionado no Google Maps.",
+      "Publique conteúdo novo com regularidade — o Google prioriza sites ativos e atualizados."
+    ],
+    ferramentas: ["Google Search Console", "Google Keyword Planner", "Ubersuggest/Semrush", "PageSpeed Insights", "Google Meu Negócio"],
+    dicas: [
+      "SEO é investimento de médio a longo prazo — resultados costumam aparecer em 3 a 6 meses.",
+      "Conteúdo que responde à pergunta do usuário por completo rankeia melhor que conteúdo curto e genérico.",
+      "Site lento perde posições mesmo com ótimo conteúdo — teste a velocidade regularmente."
+    ],
+    checklist: ["Pesquisar palavras-chave", "Otimizar título/meta description/H1", "Criar sitemap e configurar robots.txt", "Buscar backlinks de qualidade", "Configurar Google Meu Negócio"]
+  },
+  {
+    id: 5, cluster: "Conversão & Vendas", cor: "coral",
+    titulo: "Copywriting",
+    subtemas: ["AIDA","PAS","BAB","4 Ps","Storyselling","Página de vendas","Landing Page","Email","WhatsApp","Anúncios","Roteiros","Headlines","CTA","Descrições de produtos"],
+    oQueE: "Copywriting é a escrita persuasiva usada para vender — usa estruturas testadas (AIDA, PAS, BAB) para guiar o leitor da atenção até a ação.",
+    comoFazer: [
+      "AIDA: Atenção (gancho) → Interesse (desenvolva o problema) → Desejo (mostre a transformação) → Ação (CTA claro).",
+      "PAS: apresente o Problema, intensifique a dor (Agitar) e ofereça a Solução.",
+      "BAB: mostre o Before (situação atual dolorida), o After (situação desejada) e a Bridge (seu produto como ponte).",
+      "Para cada peça — página de vendas, email, anúncio, WhatsApp — escreva uma headline forte e teste 2-3 variações.",
+      "Use CTAs específicos e diretos, como \"Garanta sua vaga agora\" em vez de \"Clique aqui\".",
+      "Descreva produtos por benefício, não apenas por característica técnica."
+    ],
+    ferramentas: ["Claude/ChatGPT (rascunhos)", "Hemingway App", "Google Docs", "swipe file de headlines"],
+    dicas: [
+      "Escreva primeiro para uma pessoa só — sua persona — não para \"todo mundo\".",
+      "Toda copy boa nasce de pesquisa: leia comentários e dúvidas reais do seu público antes de escrever.",
+      "Teste sempre pelo menos duas headlines diferentes — é a variável que mais muda o resultado."
+    ],
+    checklist: ["Escolher o modelo certo (AIDA/PAS/BAB)", "Escrever headline forte", "Ter CTA específico", "Revisar por benefício, não característica", "Testar 2 variações"]
+  },
+  {
+    id: 6, cluster: "Conversão & Vendas", cor: "coral",
+    titulo: "Funil de Vendas",
+    subtemas: ["Descoberta","Educação","Relacionamento","Nutrição","Conversão","Oferta","Fechamento","Fidelização","Upsell","Cross Sell"],
+    oQueE: "O funil de vendas organiza a jornada do cliente em etapas, do primeiro contato até a fidelização, para que a mensagem certa chegue na hora certa.",
+    comoFazer: [
+      "Topo (descoberta/educação): atraia com conteúdo gratuito que resolve uma dúvida inicial.",
+      "Meio (relacionamento/nutrição): entregue mais valor via email/WhatsApp, mostre provas sociais e eduque sobre a solução.",
+      "Fundo (conversão/oferta/fechamento): apresente a oferta com urgência real e remova objeções com garantia, depoimentos e FAQ.",
+      "Pós-venda (fidelização/upsell/cross sell): entregue uma ótima experiência, peça depoimento e ofereça produtos complementares.",
+      "Mapeie qual conteúdo e canal atende cada etapa — nunca tente vender logo no topo do funil.",
+      "Meça a taxa de conversão entre cada etapa para descobrir onde o funil está \"vazando\"."
+    ],
+    ferramentas: ["RD Station/HubSpot", "ActiveCampaign/Mailchimp", "WhatsApp Business", "planilha de funil"],
+    dicas: [
+      "A maioria dos negócios perde vendas por pular etapas — vender no topo do funil afasta o cliente.",
+      "Pós-venda é a etapa mais esquecida e a mais barata de gerar nova receita.",
+      "Cada etapa do funil precisa de uma métrica própria: topo mede alcance, fundo mede conversão."
+    ],
+    checklist: ["Mapear as 4 etapas do seu funil", "Criar conteúdo para topo de funil", "Criar sequência de nutrição", "Ter oferta clara com remoção de objeções", "Ter fluxo de pós-venda/upsell"]
+  },
+  {
+    id: 7, cluster: "Relacionamento & Retenção", cor: "roxo",
+    titulo: "Email Marketing",
+    subtemas: ["Automações","Sequências","Newsletter","Recuperação de carrinho","Boas-vindas","Nutrição","Segmentação","Testes A/B"],
+    oQueE: "Email marketing constrói relacionamento e vende diretamente para uma lista que você possui — diferente das redes sociais, ninguém pode \"te tirar do ar\".",
+    comoFazer: [
+      "Crie um fluxo de boas-vindas automático com 3 a 5 emails apresentando você ou a marca.",
+      "Configure automação de nutrição: emails educativos programados ao longo de dias ou semanas.",
+      "Configure recuperação de carrinho abandonado com 2-3 emails: lembrete, urgência e desconto.",
+      "Envie uma newsletter regular, semanal ou quinzenal, com conteúdo de valor e uma oferta ocasional.",
+      "Segmente sua lista por interesse ou comportamento e envie mensagens diferentes para cada grupo.",
+      "Rode testes A/B de assunto do email — é o que mais impacta a taxa de abertura."
+    ],
+    ferramentas: ["Mailchimp", "ActiveCampaign", "RD Station", "MailerLite"],
+    dicas: [
+      "O assunto do email decide a abertura; a primeira linha decide se continuam lendo.",
+      "Limpe sua lista periodicamente — enviar para quem nunca abre prejudica sua reputação de envio.",
+      "Emails de texto simples e pessoal convertem tão bem quanto ou melhor que designs elaborados."
+    ],
+    checklist: ["Criar fluxo de boas-vindas", "Configurar recuperação de carrinho", "Segmentar a lista", "Enviar newsletter regular", "Testar assuntos A/B"]
+  },
+  {
+    id: 8, cluster: "Relacionamento & Retenção", cor: "roxo",
+    titulo: "WhatsApp Marketing",
+    subtemas: ["Atendimento","Automação","Listas de transmissão","Catálogo","Recuperação de clientes","Follow-up","CRM"],
+    oQueE: "O WhatsApp é o canal de maior taxa de abertura no Brasil, usado para atendimento, automação, follow-up e até um mini-CRM de relacionamento com o cliente.",
+    comoFazer: [
+      "Configure o WhatsApp Business com catálogo de produtos ou serviços e respostas automáticas.",
+      "Crie listas de transmissão segmentadas — nunca use grupos para vender.",
+      "Automatize o primeiro atendimento com chatbot para perguntas frequentes e qualificação do lead.",
+      "Estruture uma sequência de follow-up para leads que não responderam, por exemplo nos dias 1, 3 e 7.",
+      "Use o histórico de conversa como CRM simples: anote interesse, objeções e a próxima ação de cada contato.",
+      "Recupere clientes inativos com mensagens de reativação: novidade, oferta ou lembrete."
+    ],
+    ferramentas: ["WhatsApp Business App", "WhatsApp API (Zenvia, Take Blip)", "Kommo/RD Station"],
+    dicas: [
+      "Nunca envie mensagem em massa sem segmentação — é a forma mais rápida de ser bloqueado.",
+      "Respostas rápidas, em poucos minutos, aumentam muito a conversão em vendas por WhatsApp.",
+      "Trate cada conversa como um atendimento único, mesmo quando parte dela é automatizada."
+    ],
+    checklist: ["Configurar WhatsApp Business e catálogo", "Criar listas segmentadas", "Automatizar respostas iniciais", "Criar sequência de follow-up", "Ter rotina de reativação de inativos"]
+  },
+  {
+    id: 9, cluster: "Marca & Futuro", cor: "roxo",
+    titulo: "Marketing de Influência",
+    subtemas: ["Nano Influenciadores","Micro Influenciadores","Macro Influenciadores","Celebridades","UGC"],
+    oQueE: "Marketing de influência usa a audiência e a credibilidade de criadores de conteúdo para apresentar sua marca de forma mais autêntica que um anúncio tradicional.",
+    comoFazer: [
+      "Defina o objetivo — alcance, conversão ou conteúdo (UGC) — antes de escolher o influenciador.",
+      "Nano e micro influenciadores geram mais engajamento e custo menor; macro e celebridades geram alcance e associação de marca.",
+      "Analise autenticidade antes de fechar parceria: engajamento real, comentários genuínos e público compatível com o seu.",
+      "Negocie entregáveis claros — quantidade de posts, formato, uso de imagem, exclusividade e prazo — por contrato.",
+      "Use o UGC gerado pelo criador como anúncio pago depois; costuma converter melhor que criativo de marca.",
+      "Meça por código ou link exclusivo de cada influenciador, não apenas por impressão subjetiva."
+    ],
+    ferramentas: ["Creator Marketplace (Meta)", "TikTok Creator Marketplace", "planilha de briefing", "link/cupom de rastreamento"],
+    dicas: [
+      "Micro influenciadores bem escolhidos convertem mais que uma celebridade genérica para o seu nicho.",
+      "Sempre peça os direitos de uso da imagem ou vídeo para reaproveitar em anúncios.",
+      "Prefira parcerias recorrentes a posts únicos — constroem confiança real com a audiência."
+    ],
+    checklist: ["Definir objetivo da parceria", "Escolher influenciador compatível com o público", "Fechar briefing e entregáveis por escrito", "Pedir direitos de uso de imagem", "Rastrear resultado por link/cupom"]
+  },
+  {
+    id: 10, cluster: "Marca & Futuro", cor: "roxo",
+    titulo: "Branding",
+    subtemas: ["Posicionamento","Identidade Visual","Identidade Verbal","Missão","Visão","Valores","Arquétipos","Naming","Logotipo","Manual da Marca"],
+    oQueE: "Branding é a construção da identidade da marca — o que ela representa, como fala e como é lembrada — muito além do logotipo.",
+    comoFazer: [
+      "Defina missão (por que existe), visão (onde quer chegar) e valores (como se comporta).",
+      "Escolha um arquétipo de marca, como o Herói, o Sábio ou o Criador, para guiar tom e personalidade.",
+      "Desenvolva o naming e o logotipo alinhados ao posicionamento e ao público.",
+      "Defina a identidade verbal: como a marca fala — formal, descontraída, técnica — em todos os canais.",
+      "Documente tudo em um manual de marca com cores, fontes, logotipo e tom de voz.",
+      "Revise o posicionamento sempre que o público ou o mercado mudar significativamente."
+    ],
+    ferramentas: ["Canva/Figma", "Notion (manual de marca)", "referências de arquétipos de marca"],
+    dicas: [
+      "Marca forte não é sobre ser \"bonita\", é sobre ser reconhecível e consistente em todo lugar.",
+      "Inconsistência visual e verbal é o que mais mata a credibilidade de marca no início.",
+      "Seu posicionamento deve responder: para quem, com o quê, e por que diferente da concorrência."
+    ],
+    checklist: ["Definir missão/visão/valores", "Escolher arquétipo de marca", "Criar identidade visual e verbal", "Documentar manual de marca", "Aplicar consistência em todos os canais"]
+  },
+  {
+    id: 11, cluster: "Atração & Conteúdo", cor: "verde",
+    titulo: "Design para Marketing",
+    subtemas: ["Criativos","Banners","Social Media","Thumb","Landing Pages","Criativos para anúncios","Motion Design"],
+    oQueE: "Design para marketing traduz a estratégia em peças visuais que capturam atenção e comunicam a mensagem certa em poucos segundos.",
+    comoFazer: [
+      "Crie um kit visual base — cores, fontes e templates — para acelerar a produção de criativos.",
+      "Em anúncios, priorize contraste, uma única mensagem central e um CTA visível.",
+      "Adapte cada peça ao formato do canal: proporção de feed, Stories ou thumb de vídeo.",
+      "Use thumbnails com rostos, expressões e texto grande — aumentam a taxa de clique em vídeos.",
+      "Em landing pages, hierarquize título, benefício, prova social e CTA, nessa ordem visual.",
+      "Considere motion design — pequenas animações — para destacar o CTA ou o benefício principal."
+    ],
+    ferramentas: ["Canva", "Figma", "CapCut", "Adobe Express"],
+    dicas: [
+      "Um bom criativo costuma bater uma boa segmentação na maioria dos anúncios pagos.",
+      "Menos elementos na peça significam mensagem mais clara e mais conversão.",
+      "Teste sempre 2 a 3 variações visuais do mesmo anúncio ou thumbnail."
+    ],
+    checklist: ["Criar kit visual (cores/fontes/templates)", "Manter 1 mensagem central por peça", "Adaptar formato a cada canal", "Testar variações de thumbnail/criativo", "Garantir CTA visível"]
+  },
+  {
+    id: 12, cluster: "Atração & Conteúdo", cor: "verde",
+    titulo: "Marketing de Vídeo",
+    subtemas: ["Reels","Shorts","TikTok","YouTube","Lives","VSL","UGC","Depoimentos"],
+    oQueE: "Vídeo é hoje o formato de maior consumo e conversão — de Reels rápidos a VSLs, vídeos de vendas mais longos.",
+    comoFazer: [
+      "Nos primeiros 3 segundos, entregue o gancho: uma pergunta, uma afirmação forte ou uma imagem inesperada.",
+      "Para Reels, Shorts e TikTok: vídeos de 15 a 30 segundos, corte rápido, legendas na tela, um ponto só por vídeo.",
+      "Para lives, planeje um roteiro leve — abertura, conteúdo, momento de interação, CTA — sem perder a espontaneidade.",
+      "VSL: siga a estrutura problema → agitação → solução → prova → oferta → CTA.",
+      "Depoimentos e UGC funcionam melhor gravados de forma simples e autêntica, não excessivamente produzidos.",
+      "Sempre legende os vídeos — grande parte do público assiste sem som."
+    ],
+    ferramentas: ["CapCut", "Premiere/DaVinci Resolve", "celular + microfone de lapela", "ElevenLabs (narração)"],
+    dicas: [
+      "A retenção nos primeiros 3 segundos é a métrica mais importante de vídeo curto.",
+      "Vídeo vertical (9:16) quase sempre performa melhor em redes mobile-first.",
+      "Autenticidade converte mais que produção cara na maioria dos nichos hoje."
+    ],
+    checklist: ["Definir gancho dos 3s iniciais", "Adicionar legendas", "Escolher formato certo por canal", "Ter CTA claro no fim", "Revisar retenção média do vídeo"]
+  },
+  {
+    id: 13, cluster: "Relacionamento & Retenção", cor: "roxo",
+    titulo: "Automação de Marketing",
+    subtemas: ["CRM","Fluxos","Chatbots","IA","Lead Scoring"],
+    oQueE: "Automação de marketing usa fluxos e ferramentas, incluindo IA, para nutrir, qualificar e atender leads sem trabalho manual repetido.",
+    comoFazer: [
+      "Mapeie os gatilhos, como \"baixou e-book\" ou \"abandonou carrinho\", que devem disparar uma automação.",
+      "Monte fluxos no CRM: cada gatilho dispara uma sequência de email ou WhatsApp com tempos definidos.",
+      "Use chatbots para responder perguntas frequentes e qualificar o lead antes de passar para um humano.",
+      "Configure lead scoring: dê pontos por ações, como abrir email ou visitar página de preço, para saber quem está pronto para comprar.",
+      "Automatize apenas o repetitivo — mantenha o toque humano em negociação e fechamento.",
+      "Revise e ajuste os fluxos mensalmente com base nas taxas de abertura e resposta."
+    ],
+    ferramentas: ["RD Station", "ActiveCampaign", "Zapier/Make", "ManyChat/Chatfuel"],
+    dicas: [
+      "Automação mal configurada parece robótica — revise o tom das mensagens regularmente.",
+      "Lead scoring evita que o time de vendas perca tempo com quem ainda não está pronto.",
+      "Comece automatizando um fluxo muito bem antes de criar vários fracos."
+    ],
+    checklist: ["Mapear gatilhos principais", "Criar 1 fluxo de automação completo", "Configurar lead scoring básico", "Integrar chatbot de primeiro atendimento", "Revisar fluxos mensalmente"]
+  },
+  {
+    id: 14, cluster: "Relacionamento & Retenção", cor: "roxo",
+    titulo: "CRM",
+    subtemas: ["Gestão de Clientes","Pipeline","Oportunidades","Histórico","Follow-up"],
+    oQueE: "CRM é o sistema onde você organiza clientes e oportunidades, para não depender da memória ou de planilhas soltas.",
+    comoFazer: [
+      "Cadastre cada lead com dados básicos — contato, origem, interesse — assim que ele chega.",
+      "Organize o pipeline em etapas claras, por exemplo: Novo → Contato feito → Proposta → Fechado.",
+      "Registre todo histórico de interação, como ligação, mensagem ou reunião, no card do cliente.",
+      "Defina follow-up obrigatório: nenhum lead fica sem próxima ação e data definida.",
+      "Use o CRM para identificar gargalos: em qual etapa os leads mais travam ou somem.",
+      "Revise o pipeline semanalmente com o time de vendas."
+    ],
+    ferramentas: ["RD Station CRM", "HubSpot", "Pipedrive", "Kommo"],
+    dicas: [
+      "Um CRM só funciona se todo mundo do time realmente atualizar os cards — cobre isso como rotina.",
+      "Lead sem data de follow-up é lead que se perde.",
+      "Etapas demais no pipeline confundem mais do que ajudam — comece simples, com 4 ou 5 etapas."
+    ],
+    checklist: ["Escolher um CRM e cadastrar leads", "Definir etapas do pipeline", "Registrar histórico de cada contato", "Definir follow-up com data", "Revisar pipeline semanalmente"]
+  },
+  {
+    id: 15, cluster: "Modelos de Negócio Digital", cor: "dourado",
+    titulo: "E-commerce",
+    subtemas: ["Loja Virtual","Marketplace","Checkout","Recuperação de Carrinho","Upsell","Cross Sell","Order Bump"],
+    oQueE: "E-commerce é vender produtos online por loja própria ou marketplace, com um checkout otimizado para não perder vendas na última etapa.",
+    comoFazer: [
+      "Escolha entre loja virtual própria, com mais controle de marca, ou marketplace, com mais visibilidade inicial.",
+      "Otimize o checkout: poucos campos, múltiplas formas de pagamento e frete claro desde o início.",
+      "Configure recuperação de carrinho abandonado por email ou WhatsApp automático.",
+      "Use upsell, uma oferta melhor antes de fechar, e cross sell, um produto complementar, na página de compra.",
+      "Adicione order bump — uma oferta extra de baixo valor no checkout — para aumentar o ticket médio.",
+      "Monitore a taxa de abandono de carrinho e teste mudanças no checkout para reduzi-la."
+    ],
+    ferramentas: ["Shopify", "Nuvemshop", "WooCommerce", "Mercado Livre/Shopee"],
+    dicas: [
+      "Cada campo a mais no checkout reduz a taxa de conversão — simplifique ao máximo.",
+      "Frete e prazo de entrega claros já na página do produto evitam abandono no checkout.",
+      "Um order bump bem posicionado pode aumentar o ticket médio em 10% a 30% sem esforço extra."
+    ],
+    checklist: ["Definir loja própria ou marketplace", "Simplificar o checkout", "Configurar recuperação de carrinho", "Adicionar upsell/cross sell", "Testar order bump"]
+  },
+  {
+    id: 16, cluster: "Modelos de Negócio Digital", cor: "dourado",
+    titulo: "Marketing de Afiliados",
+    subtemas: ["Hotmart","Kiwify","Eduzz","Monetizze","Amazon Afiliados"],
+    oQueE: "Marketing de afiliados é vender, ou ter seu produto vendido, por meio de parceiros que promovem em troca de comissão.",
+    comoFazer: [
+      "Como produtor: cadastre seu produto em uma plataforma de afiliados e defina a comissão.",
+      "Crie materiais de apoio para afiliados — banners, copy pronta, vídeos — para facilitar a divulgação.",
+      "Como afiliado: escolha produtos com boa reputação, prova social e uma página de vendas que já converte.",
+      "Divulgue com conteúdo próprio, não apenas link seco — reviews e comparativos convertem mais.",
+      "Acompanhe as métricas de cada link ou campanha para saber o que realmente gera comissão.",
+      "Construa audiência própria — lista, redes sociais — para não depender só de tráfego pago."
+    ],
+    ferramentas: ["Hotmart", "Kiwify", "Eduzz", "Monetizze", "Amazon Associados"],
+    dicas: [
+      "Como afiliado, divulgar um produto ruim destrói sua credibilidade — teste antes de recomendar.",
+      "Como produtor, dar suporte e material pronto para afiliados aumenta muito o volume de vendas geradas por eles.",
+      "Comissão maior nem sempre significa mais lucro — considere também a conversão da página do produto."
+    ],
+    checklist: ["Escolher a plataforma de afiliados", "Definir comissão (produtor) ou produto (afiliado)", "Criar ou usar materiais de divulgação", "Rastrear métricas por link", "Construir audiência própria"]
+  },
+  {
+    id: 17, cluster: "Modelos de Negócio Digital", cor: "dourado",
+    titulo: "Lançamentos Digitais",
+    subtemas: ["Semente","Interno","Perpétuo","Meteórico","Carrinho Aberto","CPL","Webinar","Evento Online"],
+    oQueE: "Lançamento é uma estratégia concentrada em uma janela de tempo para vender um infoproduto ou serviço com alta intensidade, usando aquecimento e um evento como webinar ou CPL.",
+    comoFazer: [
+      "Escolha o modelo: Semente para validação com audiência pequena, Interno para lista própria, Perpétuo sempre aberto, Meteórico bem rápido, ou Carrinho Aberto com janela curta de vendas.",
+      "Estruture o CPL — Conteúdo, Prova, Live — ou webinar: 3 aulas gratuitas de valor real antes da oferta.",
+      "Aqueça a audiência antes do evento com conteúdo, contagem regressiva e prova social.",
+      "No evento, entregue valor real primeiro e só depois apresente a oferta com urgência genuína.",
+      "Durante o carrinho aberto, reforce diariamente prazo, bônus e depoimentos por email e WhatsApp.",
+      "Depois do lançamento, analise as métricas de cada etapa do checkout para ajustar o próximo."
+    ],
+    ferramentas: ["Zoom/StreamYard", "ActiveCampaign/Mailchimp", "Hotmart/Kiwify"],
+    dicas: [
+      "Lançamento sem aquecimento prévio converte muito menos.",
+      "A prova social real pesa mais do que qualquer técnica de urgência.",
+      "O prazo do carrinho aberto precisa ser verdadeiro — urgência falsa quebra a confiança a longo prazo."
+    ],
+    checklist: ["Escolher o modelo de lançamento", "Planejar CPL/webinar de valor", "Aquecer audiência antes do evento", "Definir prazo real de carrinho aberto", "Analisar métricas pós-lançamento"]
+  },
+  {
+    id: 18, cluster: "Modelos de Negócio Digital", cor: "dourado",
+    titulo: "Infoprodutos",
+    subtemas: ["Cursos","E-books","Comunidades","Mentorias","Assinaturas","Templates","Planilhas","IA","Prompts"],
+    oQueE: "Infoprodutos são produtos digitais — cursos, e-books, mentorias, comunidades — que escalam sem estoque físico.",
+    comoFazer: [
+      "Valide a ideia antes de produzir: pergunte à sua audiência qual dúvida ela mais quer resolver.",
+      "Escolha o formato pelo nível de proximidade desejado: e-book para baixo ticket, curso para ticket médio, mentoria ou comunidade para ticket alto.",
+      "Estruture o conteúdo em módulos com um resultado claro em cada etapa.",
+      "Grave com áudio limpo e roteiro claro — isso importa mais do que uma produção cara.",
+      "Monte a página de vendas com benefícios, prova social, garantia e FAQ, para reduzir objeções.",
+      "Em assinaturas e comunidades, entregue novidade constante para reduzir o churn."
+    ],
+    ferramentas: ["Hotmart/Kiwify", "Notion/Discord", "Canva", "OBS/CapCut"],
+    dicas: [
+      "Infoproduto sem entrega de resultado claro tem alto índice de reembolso — foque na transformação.",
+      "Comece com uma versão enxuta e valide antes de produzir um curso gigante.",
+      "Comunidades e assinaturas dependem de conteúdo novo constante para não perder assinantes."
+    ],
+    checklist: ["Validar a ideia com a audiência", "Escolher o formato certo", "Estruturar módulos com resultado claro", "Criar página de vendas com prova social", "Ter plano para reduzir churn"]
+  },
+  {
+    id: 19, cluster: "Modelos de Negócio Digital", cor: "dourado",
+    titulo: "Produtos Físicos",
+    subtemas: ["Dropshipping","Estoque próprio","Private Label","Importação","White Label"],
+    oQueE: "Vender produtos físicos online envolve decidir entre ter estoque próprio, revender via dropshipping ou criar sua própria marca com private ou white label.",
+    comoFazer: [
+      "Dropshipping: encontre um fornecedor confiável e teste o produto com tráfego pago em pequena escala antes de escalar.",
+      "Estoque próprio: dá mais margem e controle de qualidade, mas exige capital de giro e gestão de logística.",
+      "Private Label: fabrique um produto genérico com a sua marca própria, um bom equilíbrio entre margem e diferenciação.",
+      "White Label: revenda um produto pronto de fábrica com sua marca aplicada, sem alterar a fórmula do produto.",
+      "Se for importar, calcule impostos e prazo de entrega real antes de precificar.",
+      "Teste a demanda com pouco investimento antes de comprometer capital em estoque grande."
+    ],
+    ferramentas: ["Shopify/Nuvemshop", "AliExpress/CJ Dropshipping", "Bling/Tiny"],
+    dicas: [
+      "Dropshipping tem prazo de entrega mais longo — seja transparente com o cliente sobre isso.",
+      "Private label constrói marca de verdade; dropshipping puro raramente constrói fidelidade.",
+      "Nunca compre estoque grande antes de validar a demanda com vendas reais."
+    ],
+    checklist: ["Definir o modelo do negócio", "Validar fornecedor", "Testar demanda em pequena escala", "Calcular custos reais de frete e impostos", "Definir gestão de estoque"]
+  },
+  {
+    id: 20, cluster: "Aquisição Paga & Dados", cor: "dourado",
+    titulo: "CRO — Otimização de Conversão",
+    subtemas: ["Testes A/B","Heatmaps","UX","Landing Pages","Botões","CTA","Copy"],
+    oQueE: "CRO é o processo de melhorar a taxa de conversão de um site ou página por meio de testes baseados em dados, não em opinião.",
+    comoFazer: [
+      "Identifique a página com mais tráfego e menor conversão — é onde o teste terá mais impacto.",
+      "Use heatmaps e gravações de sessão para entender onde as pessoas clicam, travam ou abandonam.",
+      "Rode testes A/B mudando uma variável por vez: headline, CTA, cor do botão ou ordem dos elementos.",
+      "Melhore a experiência (UX): tempo de carregamento, clareza da mensagem e navegação simples.",
+      "Garanta que o CTA principal apareça acima da dobra e se repita ao longo da página.",
+      "Só declare um vencedor do teste A/B com significância estatística e tempo suficiente de coleta."
+    ],
+    ferramentas: ["Hotjar/Microsoft Clarity", "Google Optimize/VWO", "Google Analytics"],
+    dicas: [
+      "Teste uma variável por vez — mudar tudo junto não deixa saber o que realmente funcionou.",
+      "Pequenas mudanças de copy e CTA costumam ter mais impacto do que um redesign completo.",
+      "CRO é um processo contínuo, não uma ação única."
+    ],
+    checklist: ["Escolher a página prioritária", "Instalar heatmap/gravação de sessão", "Rodar teste A/B de 1 variável", "Otimizar posição do CTA", "Validar resultado com significância estatística"]
+  },
+  {
+    id: 21, cluster: "Aquisição Paga & Dados", cor: "dourado",
+    titulo: "Analytics",
+    subtemas: ["Google Analytics","Pixel","Eventos","Conversões","Dashboards","KPIs","Relatórios"],
+    oQueE: "Analytics é medir o comportamento real dos usuários no seu site ou app para tomar decisões com dados, não com achismo.",
+    comoFazer: [
+      "Instale o Google Analytics 4 e o pixel das redes que você usa, como Meta e TikTok, desde o primeiro dia.",
+      "Configure eventos de conversão, como compra, cadastro ou clique no WhatsApp — sem isso você não mede o que importa.",
+      "Monte um dashboard simples com as métricas-chave do seu negócio, sem tentar olhar tudo.",
+      "Compare períodos, semana a semana ou mês a mês, para identificar tendências reais.",
+      "Cruze dados de origem de tráfego com conversão para saber qual canal realmente traz resultado.",
+      "Revise o dashboard em uma rotina fixa, por exemplo toda segunda-feira, para decisões consistentes."
+    ],
+    ferramentas: ["Google Analytics 4", "Google Tag Manager", "Meta Pixel", "Looker Studio"],
+    dicas: [
+      "Métrica de vaidade, como curtidas e seguidores, importa menos do que métrica de conversão.",
+      "Configure eventos de conversão antes de rodar tráfego pago — sem isso você gasta às cegas.",
+      "Um dashboard simples que você olha toda semana vale mais que um relatório completo que ninguém lê."
+    ],
+    checklist: ["Instalar Google Analytics 4 e pixels", "Configurar eventos de conversão", "Montar dashboard com métricas-chave", "Criar rotina de revisão semanal", "Cruzar canal de origem com conversão"]
+  },
+  {
+    id: 22, cluster: "Aquisição Paga & Dados", cor: "dourado",
+    titulo: "Métricas",
+    subtemas: ["ROI","ROAS","CAC","LTV","CPC","CPM","CPA","CTR","Conversão","Bounce Rate","Ticket Médio","Churn"],
+    oQueE: "Métricas traduzem o desempenho do marketing em números — são a linguagem comum entre marketing, vendas e financeiro.",
+    comoFazer: [
+      "CAC: quanto você gasta, em média, para conquistar um cliente novo.",
+      "LTV: quanto esse cliente gera de receita durante todo o relacionamento com a marca.",
+      "ROI e ROAS: retorno sobre o investimento total ou, especificamente, sobre o valor investido em anúncios.",
+      "CPC, CPM e CPA: custo por clique, por mil impressões e por aquisição, usados para comparar campanhas.",
+      "CTR e taxa de conversão: quantos clicam no anúncio e, entre esses, quantos realmente compram.",
+      "Regra prática: um negócio saudável precisa de LTV bem maior que o CAC, geralmente 3 vezes ou mais."
+    ],
+    ferramentas: ["planilha de métricas", "Google Analytics", "gerenciador de anúncios de cada plataforma"],
+    dicas: [
+      "Se o CAC estiver maior que o LTV, o negócio perde dinheiro a cada cliente novo — revise o funil.",
+      "Ticket médio e churn juntos definem a saúde de negócios por assinatura.",
+      "Bounce rate alto geralmente indica problema de expectativa ou de velocidade da página."
+    ],
+    checklist: ["Calcular o CAC do seu negócio", "Calcular o LTV médio", "Acompanhar o ROAS das campanhas ativas", "Monitorar a taxa de conversão do funil", "Revisar ticket médio e churn mensalmente"]
+  },
+  {
+    id: 23, cluster: "Conversão & Vendas", cor: "coral",
+    titulo: "Pesquisa de Mercado",
+    subtemas: ["Persona","Público-alvo","ICP","Concorrência","SWOT","Benchmarking"],
+    oQueE: "Pesquisa de mercado é entender profundamente para quem você vende e contra quem você compete, antes de investir em qualquer estratégia.",
+    comoFazer: [
+      "Construa a persona: dados demográficos, dores, desejos, objeções e onde ela consome conteúdo.",
+      "Defina o ICP — Perfil de Cliente Ideal — o tipo de cliente que mais compra e mais fica satisfeito.",
+      "Mapeie 3 a 5 concorrentes diretos: preço, posicionamento, pontos fortes e fracos.",
+      "Faça uma análise SWOT — Forças, Fraquezas, Oportunidades, Ameaças — do seu próprio negócio.",
+      "Faça benchmarking: estude o que negócios de referência fazem bem, do seu nicho ou fora dele.",
+      "Valide tudo com conversas reais, como entrevistas e enquetes — achismo leva a decisões erradas."
+    ],
+    ferramentas: ["Google Forms/Typeform", "redes sociais dos concorrentes", "SimilarWeb", "planilha de SWOT"],
+    dicas: [
+      "Uma persona genérica demais não ajuda a tomar nenhuma decisão prática.",
+      "Estudar a concorrência não é para copiar, é para achar a lacuna que você pode preencher melhor.",
+      "Conversar com 5 a 10 clientes reais vale mais que qualquer pesquisa teórica sobre o mercado."
+    ],
+    checklist: ["Construir a persona", "Definir o ICP", "Mapear concorrentes diretos", "Fazer análise SWOT", "Validar com entrevistas reais"]
+  },
+  {
+    id: 24, cluster: "Conversão & Vendas", cor: "coral",
+    titulo: "Estratégias de Vendas",
+    subtemas: ["SPIN Selling","BANT","Objeções","Fechamento","Negociação","Rapport"],
+    oQueE: "Estratégias de vendas são técnicas estruturadas para conduzir uma conversa comercial da abordagem até o fechamento, superando objeções no caminho.",
+    comoFazer: [
+      "SPIN Selling: faça perguntas de Situação, Problema, Implicação e Necessidade de solução, nessa ordem, antes de apresentar a oferta.",
+      "BANT: qualifique o lead por Budget, Authority, Need e Timing.",
+      "Construa rapport genuíno no início da conversa — as pessoas compram de quem confiam.",
+      "Antecipe as objeções mais comuns, como preço, tempo e confiança, e prepare respostas antes da conversa.",
+      "Conduza o fechamento com uma pergunta direta em vez de esperar o cliente decidir sozinho.",
+      "Negocie com concessões planejadas, como bônus em vez de desconto, para proteger a margem."
+    ],
+    ferramentas: ["script de vendas no CRM", "gravação de chamadas (com consentimento)", "roteiro de objeções"],
+    dicas: [
+      "Vender é ajudar a decidir, não empurrar — perguntas boas convertem mais que argumentos longos.",
+      "Objeção não respondida não desaparece, ela só faz o cliente sumir sem avisar.",
+      "Rapport verdadeiro vem de ouvir mais do que falar nos primeiros minutos da conversa."
+    ],
+    checklist: ["Preparar roteiro de perguntas (SPIN)", "Qualificar o lead (BANT)", "Mapear objeções comuns", "Preparar fechamento direto", "Revisar chamadas para melhorar rapport"]
+  },
+  {
+    id: 25, cluster: "Conversão & Vendas", cor: "coral",
+    titulo: "Psicologia do Consumidor",
+    subtemas: ["Gatilhos Mentais","Escassez","Urgência","Autoridade","Reciprocidade","Prova Social","Exclusividade","Curiosidade","Antecipação"],
+    oQueE: "Psicologia do consumidor usa gatilhos mentais — atalhos que o cérebro usa para decidir — para tornar uma oferta mais persuasiva de forma ética.",
+    comoFazer: [
+      "Escassez: mostre quantidade limitada real, como vagas ou estoque — nunca invente escassez falsa.",
+      "Urgência: use prazos reais, como fim de carrinho ou desconto por tempo determinado.",
+      "Autoridade: mostre credenciais, resultados e reconhecimento no seu nicho.",
+      "Prova social: use depoimentos, números de clientes atendidos e cases de sucesso reais.",
+      "Reciprocidade: entregue valor gratuito antes de pedir a venda, como conteúdo, amostra ou diagnóstico.",
+      "Curiosidade e antecipação: crie ganchos abertos e contagem regressiva para lançamentos."
+    ],
+    ferramentas: ["depoimentos em vídeo", "contador de tempo em landing pages", "cases de clientes documentados"],
+    dicas: [
+      "Gatilhos mentais funcionam melhor quando são verdadeiros — escassez ou urgência falsas destroem a confiança.",
+      "Prova social específica convence mais do que elogio genérico.",
+      "Reciprocidade é o gatilho mais subestimado: quem recebe valor de graça tende a retribuir com a compra."
+    ],
+    checklist: ["Usar escassez/urgência reais", "Reunir prova social documentada", "Mostrar autoridade (credenciais/resultados)", "Entregar valor gratuito antes da oferta", "Criar antecipação para lançamentos"]
+  },
+  {
+    id: 26, cluster: "Atração & Conteúdo", cor: "verde",
+    titulo: "Marketing Local",
+    subtemas: ["Google Meu Negócio","Avaliações","Mapas","SEO Local","Parcerias","Eventos"],
+    oQueE: "Marketing local é atrair clientes de uma região específica, essencial para negócios físicos ou que atendem uma área delimitada.",
+    comoFazer: [
+      "Registre e otimize completamente o perfil no Google Meu Negócio: fotos, horário, categoria e descrição.",
+      "Peça avaliações ativamente a clientes satisfeitos, e responda todas, boas ou ruins, com profissionalismo.",
+      "Otimize para SEO local usando o nome da cidade ou bairro no site e nas descrições.",
+      "Garanta que seu negócio apareça corretamente no Google Maps, com endereço, telefone e horário consistentes em todo lugar.",
+      "Faça parcerias com outros negócios da região para indicação cruzada.",
+      "Participe ou promova eventos locais para gerar visibilidade e relacionamento com a comunidade."
+    ],
+    ferramentas: ["Google Meu Negócio", "Google Maps", "avaliações no Google/Facebook"],
+    dicas: [
+      "Responder avaliações, inclusive as negativas, com profissionalismo melhora a confiança de quem pesquisa.",
+      "Informação inconsistente entre sites prejudica o ranqueamento local no Google.",
+      "Fotos reais e recentes no Google Meu Negócio aumentam bastante o clique para \"como chegar\"."
+    ],
+    checklist: ["Otimizar o Google Meu Negócio", "Pedir e responder avaliações", "Usar SEO local no site", "Garantir dados consistentes no Maps", "Buscar parcerias locais"]
+  },
+  {
+    id: 27, cluster: "Aquisição Paga & Dados", cor: "dourado",
+    titulo: "Growth Marketing",
+    subtemas: ["Growth Hacking","Loops Virais","Referral","Experimentação","Testes"],
+    oQueE: "Growth Marketing busca crescimento rápido e escalável através de experimentação constante e mecanismos que se auto-alimentam, os loops virais.",
+    comoFazer: [
+      "Monte um funil de experimentação: gere hipóteses, priorize pelas de maior impacto e menor esforço, teste rápido.",
+      "Crie loops virais: mecanismos onde o próprio uso do produto traz novos usuários, como \"convide um amigo e ganhe\".",
+      "Implemente programas de referral com recompensa clara para quem indica e para quem é indicado.",
+      "Rode experimentos pequenos e rápidos antes de investir pesado em uma ideia.",
+      "Documente cada teste — hipótese, resultado, aprendizado — para não repetir erros.",
+      "Foque em uma métrica-norte, como usuários ativos ou taxa de indicação, que guie todos os experimentos."
+    ],
+    ferramentas: ["planilha de experimentos (ICE score)", "ReferralCandy/Growsurf", "Analytics"],
+    dicas: [
+      "Growth não é sobre um \"hack\" mágico, é sobre testar muitas hipóteses pequenas rápido e continuamente.",
+      "Loops virais funcionam melhor quando a recompensa é boa para as duas partes.",
+      "Documentar os testes que não funcionaram evita repetir o mesmo erro depois."
+    ],
+    checklist: ["Definir métrica-norte de crescimento", "Criar backlog de hipóteses (ICE)", "Testar 1 loop viral ou referral", "Documentar resultados de cada teste", "Revisar aprendizados mensalmente"]
+  },
+  {
+    id: 28, cluster: "Relacionamento & Retenção", cor: "roxo",
+    titulo: "Comunidades",
+    subtemas: ["Discord","Telegram","Facebook Groups","Comunidades Pagas"],
+    oQueE: "Comunidades reúnem seu público em um espaço próprio, gratuito ou pago, para gerar pertencimento, fidelização e feedback direto.",
+    comoFazer: [
+      "Escolha a plataforma pelo perfil do público: Discord para um público mais jovem, Telegram pela praticidade, Facebook Groups para público mais maduro, ou uma comunidade paga para mais comprometimento.",
+      "Defina regras claras e um propósito único da comunidade logo na entrada.",
+      "Estimule os primeiros membros a interagir com perguntas, enquetes e desafios — comunidade vazia não cresce sozinha.",
+      "Tenha uma rotina de conteúdo e interação, como um tema por semana, uma live ou um desafio.",
+      "Em comunidades pagas, entregue valor novo constantemente para reduzir o churn.",
+      "Use a comunidade como fonte de pesquisa, perguntando diretamente o que os membros sentem falta."
+    ],
+    ferramentas: ["Discord", "Telegram", "Facebook Groups", "Circle/Whop"],
+    dicas: [
+      "Comunidade sem moderação ativa vira um grupo morto rápido.",
+      "As primeiras semanas definem a cultura da comunidade — dê atenção redobrada ao início.",
+      "A comunidade é um dos canais mais ricos para descobrir a próxima oferta que seu público quer comprar."
+    ],
+    checklist: ["Escolher a plataforma certa", "Definir regras e propósito", "Criar rotina de interação", "Ter plano de conteúdo novo (se paga)", "Usar a comunidade como pesquisa de mercado"]
+  },
+  {
+    id: 29, cluster: "Marca & Futuro", cor: "roxo",
+    titulo: "IA Aplicada ao Marketing",
+    subtemas: ["Chatbots","Criação de Conteúdo","Copywriting","Imagens","Vídeos","Voz","Automação","Atendimento","Análise de Dados"],
+    oQueE: "IA aplicada ao marketing acelera e escala tarefas de conteúdo, atendimento, imagem, vídeo e análise de dados que antes tomavam muito mais tempo manual.",
+    comoFazer: [
+      "Use IA para gerar rascunhos de copy e roteiros, e sempre revise com a voz da sua marca antes de publicar.",
+      "Crie chatbots com IA para atendimento e qualificação inicial de leads, 24 horas por dia.",
+      "Gere imagens e variações de criativos com IA para testar mais opções de anúncio rapidamente.",
+      "Use IA para gerar e editar vídeos e narrações, com voz sintética e legendas automáticas.",
+      "Use IA para analisar grandes volumes de dados, como comentários e métricas, e identificar padrões rapidamente.",
+      "Nunca publique conteúdo de IA sem revisão humana — precisão e tom de marca ainda exigem checagem."
+    ],
+    ferramentas: ["Claude/ChatGPT", "Midjourney/DALL-E", "ManyChat com IA", "ElevenLabs"],
+    dicas: [
+      "IA acelera a produção, mas não substitui estratégia — defina o objetivo antes de gerar qualquer conteúdo.",
+      "Sempre revise informações geradas por IA antes de publicar — erros e imprecisões acontecem.",
+      "Combine IA para volume com revisão humana para qualidade — essa combinação é o que realmente escala."
+    ],
+    checklist: ["Definir onde a IA será usada", "Revisar todo conteúdo gerado por IA", "Testar chatbot de atendimento", "Usar IA para analisar dados/comentários", "Manter o tom de marca em toda geração"]
+  }
+];
+
+const CLUSTER_ORDER = [
+  "Atração & Conteúdo",
+  "Aquisição Paga & Dados",
+  "Conversão & Vendas",
+  "Relacionamento & Retenção",
+  "Modelos de Negócio Digital",
+  "Marca & Futuro"
+];
+
+const TAB_LABELS = ["Visão Geral", "Como Fazer", "Ferramentas", "Checklist"];
+const TOTAL = MODULES.length;
+const STORAGE_KEY = "progresso-academia-v1";
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+
+function normalize(str) {
+  return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+/* ============================================================
+   ÍCONES (SVG simples, sem libs externas)
+   ============================================================ */
+
+function iconStar(filled) {
+  return `<svg width="16" height="16" viewBox="0 0 24 24" fill="${filled ? "currentColor" : "none"}" stroke="currentColor" stroke-width="1.8"><path d="M12 2.5l2.9 6.2 6.8.7-5.1 4.6 1.5 6.7L12 17.6l-6.1 3.1 1.5-6.7-5.1-4.6 6.8-.7z" stroke-linejoin="round" /></svg>`;
+}
+function iconCheck() {
+  return `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12.5l5.5 5.5L20 6.5" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
+}
+function iconSearch() {
+  return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" stroke-linecap="round" /></svg>`;
+}
+function iconMenu() {
+  return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round" /></svg>`;
+}
+function iconClose() {
+  return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 5l14 14M19 5L5 19" stroke-linecap="round" /></svg>`;
+}
+function iconArrow(dir) {
+  const style = dir === "left" ? ' style="transform:rotate(180deg)"' : "";
+  return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"${style}><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
+}
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+/* ============================================================
+   ESTADO DA APLICAÇÃO (substitui os useState do React)
+   ============================================================ */
+
+const state = {
+  ready: false,
+  view: "home", // "home" | id numérico do módulo
+  tab: 0,
+  query: "",
+  drawerOpen: false,
+  onlyFav: false,
+  completed: {},
+  favorites: {},
+  checklistDone: {},
+  lastModule: null,
+};
+
+/* ============================================================
+   DADOS DERIVADOS (substitui os useMemo do React)
+   ============================================================ */
+
+function getCompletedCount() {
+  return Object.values(state.completed).filter(Boolean).length;
+}
+function getProgressPct() {
+  return Math.round((getCompletedCount() / TOTAL) * 100);
+}
+function getCurrentModule() {
+  return typeof state.view === "number" ? MODULES.find(m => m.id === state.view) : null;
+}
+function getFiltered() {
+  let list = MODULES;
+  if (state.onlyFav) list = list.filter(m => state.favorites[m.id]);
+  if (state.query.trim()) {
+    const q = normalize(state.query);
+    list = list.filter(m =>
+      normalize(m.titulo).includes(q) ||
+      m.subtemas.some(s => normalize(s).includes(q))
+    );
+  }
+  return list;
+}
+function getGrouped() {
+  const filtered = getFiltered();
+  const map = {};
+  CLUSTER_ORDER.forEach(c => (map[c] = []));
+  filtered.forEach(m => { if (map[m.cluster]) map[m.cluster].push(m); });
+  return map;
+}
+function getContinueTarget() {
+  const nextIncomplete = MODULES.find(m => !state.completed[m.id]);
+  return state.lastModule && MODULES.find(m => m.id === state.lastModule)
+    ? state.lastModule
+    : (nextIncomplete ? nextIncomplete.id : MODULES[0].id);
+}
+
+/* ============================================================
+   PERSISTÊNCIA (window.storage — API de artifacts do Claude.ai)
+   ============================================================ */
+
+let saveTimer = null;
+function scheduleSave() {
+  if (!state.ready) return;
+  if (saveTimer) clearTimeout(saveTimer);
+  saveTimer = setTimeout(async () => {
+    try {
+      await window.storage.set(STORAGE_KEY, JSON.stringify({
+        completed: state.completed,
+        favorites: state.favorites,
+        checklistDone: state.checklistDone,
+        lastModule: state.lastModule
+      }), false);
+    } catch (e) {
+      console.error("Falha ao salvar progresso:", e);
+    }
+  }, 400);
+}
+
+async function initProgress() {
+  try {
+    const res = await window.storage.get(STORAGE_KEY, false);
+    if (res && res.value) {
+      const parsed = JSON.parse(res.value);
+      state.completed = parsed.completed || {};
+      state.favorites = parsed.favorites || {};
+      state.checklistDone = parsed.checklistDone || {};
+      state.lastModule = parsed.lastModule || null;
+    }
+  } catch (e) {
+    // sem progresso salvo ainda — tudo bem, começa do zero
+  } finally {
+    state.ready = true;
+    render();
+  }
+}
+
+/* ============================================================
+   AÇÕES (substituem os handlers do React)
+   ============================================================ */
+
+function openModule(id) {
+  state.view = id;
+  state.tab = 0;
+  state.lastModule = id;
+  state.drawerOpen = false;
+  render();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  scheduleSave();
+}
+function goHome() {
+  state.view = "home";
+  state.drawerOpen = false;
+  render();
+}
+function toggleDrawer(open) {
+  state.drawerOpen = open;
+  render();
+}
+function toggleFavorite(id) {
+  state.favorites[id] = !state.favorites[id];
+  render();
+  scheduleSave();
+}
+function toggleCompleted(id) {
+  state.completed[id] = !state.completed[id];
+  render();
+  scheduleSave();
+}
+function toggleChecklistItem(moduleId, idx) {
+  const arr = state.checklistDone[moduleId] ? [...state.checklistDone[moduleId]] : [];
+  arr[idx] = !arr[idx];
+  state.checklistDone[moduleId] = arr;
+  render();
+  scheduleSave();
+}
+function setTab(i) {
+  state.tab = i;
+  render();
+}
+function setQuery(q) {
+  state.query = q;
+  render();
+}
+function toggleOnlyFav() {
+  state.onlyFav = !state.onlyFav;
+  render();
+}
+function goPrevModule() {
+  const current = getCurrentModule();
+  if (!current) return;
+  const idx = MODULES.findIndex(m => m.id === current.id);
+  const prevMod = idx > 0 ? MODULES[idx - 1] : null;
+  if (prevMod) openModule(prevMod.id);
+}
+function goNextModule() {
+  const current = getCurrentModule();
+  if (!current) return;
+  const idx = MODULES.findIndex(m => m.id === current.id);
+  const nextMod = idx >= 0 && idx < MODULES.length - 1 ? MODULES[idx + 1] : null;
+  if (nextMod) openModule(nextMod.id);
+}
+
+/* ============================================================
+   RENDERIZAÇÃO (substitui o JSX do React)
+   ============================================================ */
+
+function renderAppHTML() {
+  const currentModule = getCurrentModule();
+  const progressPct = getProgressPct();
+
+  return `
+    <div class="mobile-topbar">
+      <button class="icon-btn" data-action="open-drawer" aria-label="Abrir menu de módulos">${iconMenu()}</button>
+      <span class="mobile-brand">academia<em>.digital</em></span>
+      <div class="mobile-progress-chip">${progressPct}%</div>
+    </div>
+
+    ${state.drawerOpen ? `<div class="scrim" data-action="close-drawer"></div>` : ""}
+
+    ${renderSidebar(currentModule)}
+
+    <main class="main">
+      ${state.view === "home" ? renderHome() : (currentModule ? renderModuleView(currentModule) : "")}
+    </main>
+  `;
+}
+
+function renderSidebar(currentModule) {
+  const progressPct = getProgressPct();
+  const completedCount = getCompletedCount();
+  const filtered = getFiltered();
+
+  const moduleItems = filtered.length === 0
+    ? `<div class="empty-hint">Nenhum módulo encontrado para "${escapeHtml(state.query)}".</div>`
+    : filtered.map(m => {
+        const isActive = currentModule && currentModule.id === m.id;
+        const isDone = !!state.completed[m.id];
+        const isFav = !!state.favorites[m.id];
+        return `
+          <button class="module-item${isActive ? " module-item--active" : ""}" data-action="open-module" data-id="${m.id}">
+            <span class="module-num mono cor-${m.cor}">${String(m.id).padStart(2, "0")}</span>
+            <span class="module-item-title">${escapeHtml(m.titulo)}</span>
+            <span class="module-item-actions">
+              ${isDone ? `<span class="mini-check">${iconCheck()}</span>` : ""}
+              <span
+                class="mini-star${isFav ? " mini-star--on" : ""}"
+                data-action="toggle-favorite" data-id="${m.id}"
+                role="button" tabindex="0"
+                aria-label="${isFav ? "Remover dos favoritos" : "Adicionar aos favoritos"}"
+              >${iconStar(isFav)}</span>
+            </span>
+          </button>
+        `;
+      }).join("");
+
+  return `
+    <aside class="sidebar${state.drawerOpen ? " sidebar--open" : ""}">
+      <div class="sidebar-head">
+        <div class="brand">
+          <span class="brand-mark">MD</span>
+          <div>
+            <div class="brand-name">academia<em>.digital</em></div>
+            <div class="brand-tag">trilha de mercado digital</div>
+          </div>
+        </div>
+        <button class="icon-btn only-mobile" data-action="close-drawer" aria-label="Fechar menu">${iconClose()}</button>
+      </div>
+
+      <button class="home-btn" data-action="go-home">
+        <span>Painel</span>
+        <span class="home-btn-pct">${progressPct}%</span>
+      </button>
+
+      <div class="funil-box">
+        <div class="funil-label">
+          <span>SEU FUNIL DE APRENDIZADO</span>
+          <span class="mono">${completedCount}/${TOTAL}</span>
+        </div>
+        <div class="funil-track">
+          <div class="funil-fill" style="height:${progressPct}%"></div>
+        </div>
+      </div>
+
+      <div class="search-box">
+        ${iconSearch()}
+        <input id="sidebar-search-input" data-role="search-input" value="${escapeHtml(state.query)}" placeholder="Buscar módulo ou tema..." aria-label="Buscar módulo">
+      </div>
+
+      <button class="fav-filter${state.onlyFav ? " fav-filter--on" : ""}" data-action="toggle-fav-filter">
+        ${iconStar(state.onlyFav)} Só favoritos
+      </button>
+
+      <nav class="module-list" aria-label="Lista de módulos">
+        ${moduleItems}
+      </nav>
+    </aside>
+  `;
+}
+
+function renderHome() {
+  const progressPct = getProgressPct();
+  const completedCount = getCompletedCount();
+  const grouped = getGrouped();
+  const continueTargetId = getContinueTarget();
+  const continueModule = MODULES.find(m => m.id === continueTargetId);
+  const anyResults = CLUSTER_ORDER.some(c => grouped[c] && grouped[c].length);
+
+  const clusterSections = CLUSTER_ORDER.map(cluster => {
+    const mods = grouped[cluster];
+    if (!mods || mods.length === 0) return "";
+    const cor = mods[0].cor;
+    const cards = mods.map(m => {
+      const isDone = !!state.completed[m.id];
+      const isFav = !!state.favorites[m.id];
+      return `
+        <article class="module-card" data-action="open-module" data-id="${m.id}" tabindex="0">
+          <div class="module-card-top">
+            <span class="module-num mono cor-${m.cor}">${String(m.id).padStart(2, "0")}</span>
+            <span
+              class="mini-star${isFav ? " mini-star--on" : ""}"
+              data-action="toggle-favorite" data-id="${m.id}"
+              role="button" tabindex="0" aria-label="Favoritar módulo"
+            >${iconStar(isFav)}</span>
+          </div>
+          <h3>${escapeHtml(m.titulo)}</h3>
+          <p>${escapeHtml(m.oQueE.split(".")[0])}.</p>
+          <div class="module-card-foot">
+            <span class="chip-count">${m.subtemas.length} temas</span>
+            ${isDone ? `<span class="done-tag">${iconCheck()} concluído</span>` : ""}
+          </div>
+        </article>
+      `;
+    }).join("");
+
+    return `
+      <section class="cluster-section">
+        <div class="cluster-heading">
+          <span class="cluster-dot cor-bg-${cor}"></span>
+          <h2>${escapeHtml(cluster)}</h2>
+          <span class="cluster-count mono">${mods.length} módulos</span>
+        </div>
+        <div class="module-grid">
+          ${cards}
+        </div>
+      </section>
+    `;
+  }).join("");
+
+  return `
+    <div class="home">
+      <header class="hero">
+        <div class="hero-text">
+          <div class="eyebrow">TRILHA COMPLETA · 29 MÓDULOS</div>
+          <h1>Aprenda a trabalhar com mercado digital, do zero à execução.</h1>
+          <p class="hero-sub">
+            Conteúdo, tráfego, SEO, copy, funil, automação, vendas e IA — tudo explicado em passo a passo prático,
+            com ferramentas reais e checklists para aplicar hoje mesmo.
+          </p>
+          <div class="hero-actions">
+            <button class="btn-primary" data-action="open-module" data-id="${continueModule.id}">
+              ${completedCount === 0 ? "Começar pelo módulo 01" : "Continuar de onde parei"}
+              ${iconArrow("right")}
+            </button>
+            <div class="hero-progress">
+              <div class="ring" style="--pct:${progressPct}">
+                <span>${progressPct}%</span>
+              </div>
+              <div>
+                <div class="hero-progress-title">${completedCount} de ${TOTAL} concluídos</div>
+                <div class="hero-progress-sub">seu progresso é salvo automaticamente</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-panel">
+          <div class="hero-panel-label mono">PRÓXIMO PASSO</div>
+          <div class="hero-panel-num mono cor-${continueModule.cor}">M${String(continueModule.id).padStart(2, "0")}</div>
+          <div class="hero-panel-title">${escapeHtml(continueModule.titulo)}</div>
+          <p class="hero-panel-desc">${escapeHtml(continueModule.oQueE.split(".")[0])}.</p>
+          <button class="btn-ghost" data-action="open-module" data-id="${continueModule.id}">Abrir módulo ${iconArrow("right")}</button>
+        </div>
+      </header>
+
+      <div class="home-search only-mobile-search">
+        ${iconSearch()}
+        <input id="home-search-input" data-role="search-input" value="${escapeHtml(state.query)}" placeholder="Buscar módulo ou tema...">
+      </div>
+
+      ${!anyResults ? `<div class="empty-hint" style="margin:40px 4px">Nenhum módulo encontrado para "${escapeHtml(state.query)}".</div>` : ""}
+
+      ${clusterSections}
+    </div>
+  `;
+}
+
+function renderModuleView(m) {
+  const isDone = !!state.completed[m.id];
+  const isFav = !!state.favorites[m.id];
+  const checklistDoneArr = state.checklistDone[m.id] || [];
+  const doneCount = checklistDoneArr.filter(Boolean).length;
+
+  const idx = MODULES.findIndex(mod => mod.id === m.id);
+  const prevMod = idx > 0 ? MODULES[idx - 1] : null;
+  const nextMod = idx >= 0 && idx < MODULES.length - 1 ? MODULES[idx + 1] : null;
+
+  const tabs = TAB_LABELS.map((label, i) => `
+    <button role="tab" aria-selected="${state.tab === i}" class="tab${state.tab === i ? " tab--active" : ""}" data-action="set-tab" data-tab="${i}">
+      ${escapeHtml(label)}
+      ${label === "Checklist" ? `<span class="tab-badge mono">${doneCount}/${m.checklist.length}</span>` : ""}
+    </button>
+  `).join("");
+
+  let panel = "";
+  if (state.tab === 0) {
+    panel = `
+      <div class="panel-card">
+        <h3>O que é</h3>
+        <p class="lead">${escapeHtml(m.oQueE)}</p>
+        <h3>Dicas práticas</h3>
+        <ul class="tip-list">
+          ${m.dicas.map(d => `<li>${escapeHtml(d)}</li>`).join("")}
+        </ul>
+      </div>
+    `;
+  } else if (state.tab === 1) {
+    panel = `
+      <div class="panel-card">
+        <h3>Passo a passo</h3>
+        <ol class="step-list">
+          ${m.comoFazer.map((s, i) => `
+            <li>
+              <span class="step-num mono">${String(i + 1).padStart(2, "0")}</span>
+              <span>${escapeHtml(s)}</span>
+            </li>
+          `).join("")}
+        </ol>
+      </div>
+    `;
+  } else if (state.tab === 2) {
+    panel = `
+      <div class="panel-card">
+        <h3>Ferramentas recomendadas</h3>
+        <div class="tool-grid">
+          ${m.ferramentas.map(f => `<div class="tool-card">${escapeHtml(f)}</div>`).join("")}
+        </div>
+      </div>
+    `;
+  } else if (state.tab === 3) {
+    panel = `
+      <div class="panel-card">
+        <h3>Checklist de execução</h3>
+        <p class="checklist-sub">Marque cada item conforme for aplicando no seu negócio.</p>
+        <ul class="checklist">
+          ${m.checklist.map((item, i) => {
+            const done = !!checklistDoneArr[i];
+            return `
+              <li class="checklist-item${done ? " checklist-item--done" : ""}" data-action="toggle-checklist" data-id="${m.id}" data-idx="${i}">
+                <span class="checkbox${done ? " checkbox--on" : ""}">${done ? iconCheck() : ""}</span>
+                <span>${escapeHtml(item)}</span>
+              </li>
+            `;
+          }).join("")}
+        </ul>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="module-view">
+      <div class="module-header cor-bg-soft-${m.cor}">
+        <div class="module-header-top">
+          <span class="module-num-lg mono cor-${m.cor}">M${String(m.id).padStart(2, "0")}</span>
+          <div class="module-header-actions">
+            <button class="pill-btn${isFav ? " pill-btn--fav" : ""}" data-action="toggle-favorite" data-id="${m.id}">
+              ${iconStar(isFav)} ${isFav ? "Favoritado" : "Favoritar"}
+            </button>
+            <button class="pill-btn${isDone ? " pill-btn--done" : ""}" data-action="toggle-completed" data-id="${m.id}">
+              ${iconCheck()} ${isDone ? "Concluído" : "Marcar como concluído"}
+            </button>
+          </div>
+        </div>
+        <div class="cluster-tag">${escapeHtml(m.cluster)}</div>
+        <h1>${escapeHtml(m.titulo)}</h1>
+        <div class="chip-row">
+          ${m.subtemas.map(s => `<span class="chip">${escapeHtml(s)}</span>`).join("")}
+        </div>
+      </div>
+
+      <div class="tabs" role="tablist">
+        ${tabs}
+      </div>
+
+      <div class="tab-panel">
+        ${panel}
+      </div>
+
+      <div class="module-nav">
+        <button class="nav-btn" data-action="prev-module" ${!prevMod ? "disabled" : ""}>
+          ${iconArrow("left")} ${prevMod ? escapeHtml(prevMod.titulo) : "Início da trilha"}
+        </button>
+        <button class="nav-btn nav-btn--next" data-action="next-module" ${!nextMod ? "disabled" : ""}>
+          ${nextMod ? escapeHtml(nextMod.titulo) : "Fim da trilha"} ${iconArrow("right")}
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+/* ============================================================
+   RENDER PRINCIPAL (com preservação de foco/cursor no input)
+   ============================================================ */
+
+function render() {
+  const active = document.activeElement;
+  const activeId = active && active.id;
+  const selStart = active && typeof active.selectionStart === "number" ? active.selectionStart : null;
+  const selEnd = active && typeof active.selectionEnd === "number" ? active.selectionEnd : null;
+
+  appRoot.innerHTML = renderAppHTML();
+
+  if (activeId) {
+    const el = document.getElementById(activeId);
+    if (el) {
+      el.focus();
+      if (selStart != null && el.setSelectionRange) {
+        try { el.setSelectionRange(selStart, selEnd); } catch (e) { /* ignora inputs sem suporte a seleção */ }
+      }
+    }
+  }
+}
+
+/* ============================================================
+   DELEGAÇÃO DE EVENTOS (substitui onClick/onChange/onKeyDown do React)
+   ============================================================ */
+
+const appRoot = document.getElementById("app-root");
+
+appRoot.addEventListener("click", (e) => {
+  const el = e.target.closest("[data-action]");
+  if (!el) return;
+  const action = el.dataset.action;
+  const id = el.dataset.id !== undefined ? Number(el.dataset.id) : null;
+
+  switch (action) {
+    case "open-drawer": toggleDrawer(true); break;
+    case "close-drawer": toggleDrawer(false); break;
+    case "go-home": goHome(); break;
+    case "open-module": if (id !== null) openModule(id); break;
+    case "toggle-favorite": if (id !== null) toggleFavorite(id); break;
+    case "toggle-completed": if (id !== null) toggleCompleted(id); break;
+    case "toggle-fav-filter": toggleOnlyFav(); break;
+    case "set-tab": setTab(Number(el.dataset.tab)); break;
+    case "toggle-checklist": toggleChecklistItem(Number(el.dataset.id), Number(el.dataset.idx)); break;
+    case "prev-module": goPrevModule(); break;
+    case "next-module": goNextModule(); break;
+  }
+});
+
+appRoot.addEventListener("input", (e) => {
+  if (e.target.matches("[data-role=\"search-input\"]")) {
+    setQuery(e.target.value);
+  }
+});
+
+appRoot.addEventListener("keydown", (e) => {
+  if (e.key !== "Enter") return;
+  const el = e.target.closest("[data-action]");
+  if (!el || el.tagName === "BUTTON") return; // botões nativos já ativam com Enter
+  e.preventDefault();
+  el.click();
+});
+
+/* ============================================================
+   INICIALIZAÇÃO
+   ============================================================ */
+
+render();
+initProgress();
+</script>
+</body>
+</html>
